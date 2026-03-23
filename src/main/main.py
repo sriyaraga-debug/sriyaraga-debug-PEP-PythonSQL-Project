@@ -119,8 +119,8 @@ def write_ordered_calls(csv_file_path):
     orderedCalls = cursor.fetchall()
     with open(csv_file_path, "w") as orderedCalls_csv:
         orderedCalls_csv.write("callId,phoneNumber,startTime,endTime,direction,userId\n")
-        write_csv = csv.writer(analytics_csv)
-        write_csv.writerows(userAnalytics)
+        write_csv = csv.writer(orderedCalls_csv)
+        write_csv.writerows(orderedCalls_csv)
     print("TODO: write_ordered_calls")
 
 
