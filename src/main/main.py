@@ -52,6 +52,7 @@ def load_and_clean_users(file_path):
     with open(file_path, "r") as user_data:
         next(user_data, None)
         for line in user_data:
+            line = line.replace(" ", "")
             line_length = len(line)
             if line.count(",") != 1:
                 continue
@@ -64,6 +65,11 @@ def load_and_clean_users(file_path):
     query= """INSERT INTO users (firstName, lastName) VALUES (?,?)"""
     cursor.executemany(query, users)
     print("users have been loaded")
+    cursor.execute("""select * from users""")
+    results = cursor.fetchall()
+    print("number of records:", len(results))
+    print(results)
+
 
   
 
