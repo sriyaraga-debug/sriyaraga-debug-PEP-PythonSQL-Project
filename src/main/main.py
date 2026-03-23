@@ -50,7 +50,7 @@ def main():
 def load_and_clean_users(file_path):
     users = []
     with open(file_path, "r") as user_data:
-        next(user_data, None)
+        #next(user_data, None)
         for line in user_data:
             line = line.replace(" ", "")
             line_length = len(line)
@@ -78,7 +78,7 @@ def load_and_clean_users(file_path):
 def load_and_clean_call_logs(file_path):
     calls = []
     with open(file_path, "r") as call_data:
-        next(call_data, None)
+        #next(call_data, None)
         for line in call_data:
             line = line.replace(" ", "")
             line = line.replace('\n', '')
