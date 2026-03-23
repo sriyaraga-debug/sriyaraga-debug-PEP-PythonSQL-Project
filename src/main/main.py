@@ -65,10 +65,10 @@ def load_and_clean_users(file_path):
     query= """INSERT INTO users (firstName, lastName) VALUES (?,?)"""
     cursor.executemany(query, users)
     print("users have been loaded")
-    #cursor.execute("""select * from users""")
-    #results = cursor.fetchall()
-    #print("number of records:", len(results))
-    #print(results)
+    cursor.execute("""select * from users""")
+    results = cursor.fetchall()
+    print("number of records:", len(results))
+    print(results)
 
 
   
@@ -80,11 +80,12 @@ def load_and_clean_call_logs(file_path):
     with open(file_path, "r") as call_data:
         next(call_data, None)
         for line in call_data:
+            line = line.replace(" ", "")
             line = line.replace('\n', '')
             line_length = len(line)
             if line.count(",") != 4:
                 continue
-            elif line.find(",") == 0 or line.find(",") >= line_length or (",," in line):
+            elif line.find(",") == 0 or line.find(",") == line_length-1 or (",," in line):
                 continue
             else:
                 tup = tuple(line.split(','))
@@ -92,6 +93,11 @@ def load_and_clean_call_logs(file_path):
     query= """INSERT INTO callLogs (phoneNumber, startTime, endTime, direction, userId) VALUES (?,?,?,?,?)"""
     cursor.executemany(query, calls)
     print("call logs have been loaded")
+    cursor.execute("""select * from callLogs""")
+    results = cursor.fetchall()
+    print("number of records:", len(results))
+    for i in results:
+        print(i)
 
 
 
