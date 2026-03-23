@@ -3,6 +3,8 @@ import sqlite3
 import csv
 import unittest
 
+from src.main import main
+
 from src.main.main import load_and_clean_users, return_cursor, load_and_clean_call_logs, write_ordered_calls, write_user_analytics
 
 
