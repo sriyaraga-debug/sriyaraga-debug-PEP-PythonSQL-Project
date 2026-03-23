@@ -50,13 +50,13 @@ def main():
 def load_and_clean_users(file_path):
     users = []
     with open(file_path, "r") as user_data:
-        #next(user_data, None)
+        next(user_data, None)
         for line in user_data:
             line = line.replace(" ", "")
             line_length = len(line)
             if line.count(",") != 1:
                 continue
-            elif line.find(",") == 0 or line.find(",") >= line_length:
+            elif line.find(",") == 0 or line.rfind(",") == line_length-1:
                 continue
             else:
                 ind = line.index(",")
@@ -85,7 +85,7 @@ def load_and_clean_call_logs(file_path):
             line_length = len(line)
             if line.count(",") != 4:
                 continue
-            elif line.find(",") == 0 or line.find(",") == line_length-1 or (",," in line):
+            elif line.find(",") == 0 or line.rfind(",") == line_length-1 or (",," in line):
                 continue
             else:
                 tup = tuple(line.split(','))
