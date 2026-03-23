@@ -52,6 +52,7 @@ def load_and_clean_users(file_path):
     with open(file_path, "r") as user_data:
         next(user_data, None)
         for line in user_data:
+            line = line.replace(" ", "")
             line_length = len(line)
             if line.count(",") != 1:
                 continue
