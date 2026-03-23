@@ -50,7 +50,7 @@ def main():
 def load_and_clean_users(file_path):
     users = []
     with open(file_path, "r") as user_data:
-        next(user_data, None)
+        #next(user_data, None)
         for line in user_data:
             line_length = len(line)
             if line.count(",") != 1:
@@ -71,9 +71,9 @@ def load_and_clean_users(file_path):
 # This function will load the callLogs.csv file into the callLogs table, discarding any records with incomplete data
 def load_and_clean_call_logs(file_path):
     calls = []
-    with open(file_path, "r") as user_data:
-        next(user_data, None)
-        for line in user_data:
+    with open(file_path, "r") as call_data:
+        #next(call_data, None)
+        for line in call_data:
             line = line.replace('\n', '')
             line_length = len(line)
             if line.count(",") != 4:
