@@ -30,10 +30,10 @@ def main():
     )''')
 
     # You will implement these methods below. They just print TO-DO messages for now.
-    load_and_clean_users('../../resources/users.csv')
-    load_and_clean_call_logs('../../resources/callLogs.csv')
-    write_user_analytics('../../resources/userAnalytics.csv')
-    write_ordered_calls('../../resources/orderedCalls.csv')
+    load_and_clean_users('/home/ubuntu/sriyaraga-debug-PEP-PythonSQL-Project/resources/users.csv')
+    load_and_clean_call_logs('/home/ubuntu/sriyaraga-debug-PEP-PythonSQL-Project/resources/callLogs.csv')
+    write_user_analytics('/home/ubuntu/sriyaraga-debug-PEP-PythonSQL-Project/resources/userAnalytics.csv')
+    write_ordered_calls('/home/ubuntu/sriyaraga-debug-PEP-PythonSQL-Project/resources/orderedCalls.csv')
 
     # Helper method that prints the contents of the users and callLogs tables. Uncomment to see data.
     # select_from_users_and_call_logs()
@@ -48,14 +48,45 @@ def main():
 
 # This function will load the users.csv file into the users table, discarding any records with incomplete data
 def load_and_clean_users(file_path):
+    users = []
+    with open(file_path, "r") as user_data:
+        next(user_data, None)
+        for line in user_data:
+            line_length = len(line)
+            if line.count(",") != 1:
+                continue
+            elif line.find(",") == 0 or line.find(",") >= line_length:
+                continue
+            else:
+                ind = line.index(",")
+                tup = (line[0:ind], line[ind+1: line_length-1])
+                users.append(tup)
+    query= """INSERT INTO users (firstName, lastName) VALUES (?,?)"""
+    cursor.executemany(query, users)
+    print("users have been loaded")
 
-    print("TODO: load_users")
+  
 
 
 # This function will load the callLogs.csv file into the callLogs table, discarding any records with incomplete data
 def load_and_clean_call_logs(file_path):
+    calls = []
+    with open(file_path, "r") as user_data:
+        next(user_data, None)
+        for line in user_data:
+            line = line.replace('\n', '')
+            line_length = len(line)
+            if line.count(",") != 4:
+                continue
+            elif line.find(",") == 0 or line.find(",") >= line_length or (",," in line):
+                continue
+            else:
+                tup = tuple(line.split(','))
+                calls.append(tup)
+    query= """INSERT INTO callLogs (phoneNumber, startTime, endTime, direction, userId) VALUES (?,?,?,?,?)"""
+    cursor.executemany(query, calls)
+    print("call logs have been loaded")
 
-    print("TODO: load_call_logs")
 
 
 # This function will write analytics data to testUserAnalytics.csv - average call time, and number of calls per user.
