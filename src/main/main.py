@@ -13,7 +13,7 @@ def main():
     # users table
     cursor.execute('''CREATE TABLE IF NOT EXISTS users (
                         userId INTEGER PRIMARY KEY,
-                        firstName TEXT,
+                        firstName TEXT ,
                         lastName TEXT
                       )'''
                    )
